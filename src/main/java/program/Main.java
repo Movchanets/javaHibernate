@@ -97,7 +97,7 @@ public class Main {
                 Transaction transaction = context.beginTransaction();
                 System.out.println("Вкажіть дію:");
                 System.out.println(question.toString());
-                System.out.println("0 - Вийти 1-Редагувати текст, 2-Редагувати відповіді на питання по id, 3-Видалити  питання ");
+                System.out.println("0 - Вийти 1-Редагувати текст, 2-Редагувати відповіді на питання по id ");
                 action = in.nextLine();
 
                 switch (action) {
@@ -142,15 +142,12 @@ public class Main {
                                 question.getAnswers().remove(cur);
                                 cur.setQuestion(null);
                                 context.delete(cur);
+
                             }
                         }
                         transaction.commit();
                     }
-                    case "3" -> {
 
-                        context.delete(question);
-                        transaction.commit();
-                    }
                 }
             } while (!action.equals("0"));
 
@@ -170,11 +167,11 @@ public class Main {
                 List<Answer> answers = q.getAnswers();
                 if (answers.size() > answer - 1 && 0 >= answer - 1) {
                     if (answers.get(answer - 1).isTrue()) {
-                        grade += 2;
+                        grade++;
                     }
                 }
             }
-            return grade;
+            return list.size()>0? (int) (((double) grade / list.size()) * 12) : 0;
         }
     }
 
